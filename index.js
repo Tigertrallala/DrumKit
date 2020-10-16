@@ -2,16 +2,18 @@ var buttons = document.querySelectorAll(".drum");
 for (idxBtn = 0; idxBtn < buttons.length; idxBtn++) {
   buttons[idxBtn].addEventListener("click", function () {
     playdedicatedSound(this.innerHTML);
+    buttonAnimation(this.innerHTML);
   });
 }
 
 document.addEventListener("keydown", function (event) {
   playdedicatedSound(event.key);
+  buttonAnimation(event.key);
 });
 
-function playdedicatedSound(buttonPressed) {
+function playdedicatedSound(key) {
   var audioLocPath = "";
-  switch (buttonPressed) {
+  switch (key) {
     case "w":
       var audioLocPath = "./sounds/tom-3.mp3";
       break;
@@ -40,4 +42,13 @@ function playdedicatedSound(buttonPressed) {
     var audio = new Audio(audioLocPath);
     audio.play();
   }
+}
+
+function buttonAnimation(key) {
+  var selectedElement = document.querySelector("." + key);
+
+  selectedElement.classList.add("pressed");
+  setTimeout(function () {
+    selectedElement.classList.remove("pressed");
+  }, 100);
 }
